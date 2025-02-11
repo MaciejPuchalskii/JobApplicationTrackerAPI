@@ -1,6 +1,6 @@
 ﻿using JobApplicationTrackerAPI.Data.Enums;
 
-namespace JobApplicationTrackerAPI.Data.Models
+namespace JobApplicationTrackerAPI.Models
 {
     public class JobApplication
     {

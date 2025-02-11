@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace JobApplicationTrackerAPI.Data.Models
+namespace JobApplicationTrackerAPI.Models
 {
     public class User : IdentityUser
     {
