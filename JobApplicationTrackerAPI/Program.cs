@@ -1,7 +1,7 @@
-using JobApplicationTrackerAPI.Data.Models;
 using JobApplicationTrackerAPI.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using JobApplicationTrackerAPI.Models;
 
 namespace JobApplicationTrackerAPI
 {

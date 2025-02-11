@@ -1,4 +1,4 @@
-﻿namespace JobApplicationTrackerAPI.Data.Models
+﻿namespace JobApplicationTrackerAPI.Models
 {
     public class Attachment
     {

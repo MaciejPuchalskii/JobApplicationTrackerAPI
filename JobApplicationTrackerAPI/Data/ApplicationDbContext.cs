@@ -1,4 +1,4 @@
-﻿using JobApplicationTrackerAPI.Data.Models;
+﻿using JobApplicationTrackerAPI.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
