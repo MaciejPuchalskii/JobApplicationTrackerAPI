@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using JobApplicationTrackerAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using JobApplicationTrackerAPI.Extensions;
 
 namespace JobApplicationTrackerAPI
 {
@@ -34,8 +34,9 @@ namespace JobApplicationTrackerAPI
                 });
 
             builder.Services.AddControllers();
-
+            builder.Services.AddApplicationServices();
             var dbPath = Path.Combine(AppContext.BaseDirectory, "jobtracker.db");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite($"Data Source={dbPath}"));
 
