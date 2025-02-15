@@ -1,6 +1,6 @@
 ﻿using JobApplicationTrackerAPI.Data;
 
-namespace JobApplicationTrackerAPI.Repository.AttachmentRepository
+namespace JobApplicationTrackerAPI.Repository.Attachment
 {
     public class AttachmentRepository : GenericRepository<Models.Attachment>, IAttachmentRepository
     {

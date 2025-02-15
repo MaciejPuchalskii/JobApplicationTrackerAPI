@@ -1,12 +1,14 @@
-﻿namespace JobApplicationTrackerAPI.Service.CompanyService
+﻿using JobApplicationTrackerAPI.Repository.Company;
+
+namespace JobApplicationTrackerAPI.Service.CompanyService
 {
     public class CompanyService : ICompanyService
     {
-        private readonly ICompanyService _companyService;
+        private readonly ICompanyRepository _companyRepository;
 
-        public CompanyService(ICompanyService companyService)
+        public CompanyService(ICompanyRepository companyRepository)
         {
-            _companyService = companyService;
+            _companyRepository = companyRepository;
         }
     }
 }
