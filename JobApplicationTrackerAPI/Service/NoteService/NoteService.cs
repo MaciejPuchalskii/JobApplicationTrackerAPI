@@ -1,12 +1,14 @@
-﻿namespace JobApplicationTrackerAPI.Service.NoteService
+﻿using JobApplicationTrackerAPI.Repository.Note;
+
+namespace JobApplicationTrackerAPI.Service.NoteService
 {
     public class NoteService : INoteService
     {
-        private readonly INoteService _noteService;
+        private readonly INoteRepository _noteRepository;
 
-        public NoteService(INoteService noteService)
+        public NoteService(INoteRepository noteRepository)
         {
-            _noteService = noteService;
+            _noteRepository = noteRepository;
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿namespace JobApplicationTrackerAPI.Service.JobApplicationService
+﻿using JobApplicationTrackerAPI.Repository.JobApplication;
+
+namespace JobApplicationTrackerAPI.Service.JobApplicationService
 {
     public class JobApplicationService : IJobApplicationService
     {
-        private readonly IJobApplicationService _jobApplicationService;
+        private readonly IJobApplicationRepository _jobApplicationRepository;
 
-        public JobApplicationService(IJobApplicationService jobApplicationService)
+        public JobApplicationService(IJobApplicationRepository jobApplicationRepository)
         {
-            _jobApplicationService = jobApplicationService;
+            _jobApplicationRepository = jobApplicationRepository;
         }
     }
 }

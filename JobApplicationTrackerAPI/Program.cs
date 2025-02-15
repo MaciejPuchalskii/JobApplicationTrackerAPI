@@ -33,8 +33,6 @@ namespace JobApplicationTrackerAPI
                     };
                 });
 
-            builder.Services.AddControllers();
-            builder.Services.AddApplicationServices();
             var dbPath = Path.Combine(AppContext.BaseDirectory, "jobtracker.db");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -43,6 +41,10 @@ namespace JobApplicationTrackerAPI
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.AddApplicationServices();
+
+            builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -98,10 +100,8 @@ namespace JobApplicationTrackerAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();
