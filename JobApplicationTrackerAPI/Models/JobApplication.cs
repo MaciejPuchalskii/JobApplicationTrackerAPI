@@ -9,7 +9,7 @@ namespace JobApplicationTrackerAPI.Models
         public string Description { get; set; }
         public JobApplicationStatus Status { get; set; }
         public DateTime AppliedDate { get; set; }
-
+        public string? JobAdvertURL { get; set; }
         public Guid CompanyId { get; set; }
         public Company Company { get; set; }
 

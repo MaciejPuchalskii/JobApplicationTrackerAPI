@@ -8,7 +8,7 @@
         public string? ContactPerson { get; set; }
 
         public string? PhoneNumber { get; set; }
-        public string? JobAdvertURL { get; set; }
+        public string? CompanyURL { get; set; }
         public ICollection<JobApplication> JobApplications { get; set; } = [];
     }
 }
