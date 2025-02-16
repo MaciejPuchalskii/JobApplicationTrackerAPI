@@ -1,4 +1,4 @@
-﻿using JobApplicationTrackerAPI.DTOs;
+﻿using JobApplicationTrackerAPI.DTOs.Command.Auth;
 using JobApplicationTrackerAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace JobApplicationTrackerAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto model)
+        public async Task<IActionResult> Register([FromBody] RegisterCommandDto model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -47,7 +47,7 @@ namespace JobApplicationTrackerAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto model)
+        public async Task<IActionResult> Login([FromBody] LoginCommandDto model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
