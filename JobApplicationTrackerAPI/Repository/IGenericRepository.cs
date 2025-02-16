@@ -2,14 +2,14 @@
 {
     public interface IGenericRepository<T> where T : class
     {
-        public void Add(T entity);
+        public Task Add(T entity);
 
-        public void Delete(T entity);
+        public Task Delete(T entity);
 
-        public void Update(T entity);
+        public Task Update(T entity);
 
-        public List<T> GetAll(T entity);
+        public Task<IEnumerable<T>> GetAll();
 
-        public T GetById(int id);
+        public Task<T> GetById(Guid id);
     }
 }

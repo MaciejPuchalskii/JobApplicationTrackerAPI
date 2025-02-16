@@ -13,33 +13,35 @@ namespace JobApplicationTrackerAPI.Repository
             _context = context;
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            _context.Add(entity);
-            _context.SaveChanges();
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
-            _context.Remove(entity);
-            _context.SaveChanges();
+            if (entity != null)
+            {
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public List<T> GetAll(T entity)
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return this.entity.ToList();
+            return await entity.ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(Guid id)
         {
-            var entity = _context.Find<T>(id);
-            return entity;
+            return await _context.FindAsync<T>(id);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
