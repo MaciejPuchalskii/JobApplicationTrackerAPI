@@ -4,7 +4,7 @@ using JobApplicationTrackerAPI.Repository.Company;
 using JobApplicationTrackerAPI.Repository.JobApplication;
 using JobApplicationTrackerAPI.Repository.Note;
 using JobApplicationTrackerAPI.Service.Attachment;
-using JobApplicationTrackerAPI.Service.CompanyService;
+using JobApplicationTrackerAPI.Service.Company;
 using JobApplicationTrackerAPI.Service.JobApplicationService;
 using JobApplicationTrackerAPI.Service.NoteService;
 
