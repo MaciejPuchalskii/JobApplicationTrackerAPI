@@ -8,7 +8,7 @@ namespace JobApplicationTrackerAPI.Service.Company
 
         Task<Models.Company> Add(AddCompanyCommandDto companyDto);
 
-        Task<Models.Company> Delete(Guid id);
+        Task<bool> Delete(Guid id);
 
         Task<Models.Company> GetById(Guid id);
 

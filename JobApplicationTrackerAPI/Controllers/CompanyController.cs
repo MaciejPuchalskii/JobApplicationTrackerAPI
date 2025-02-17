@@ -66,8 +66,9 @@ namespace JobApplicationTrackerAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var result = _companyService.Delete(id);
-            return Ok(result);
+            var result = await _companyService.Delete(id);
+            if (!result) return NotFound();
+            return Ok(new { message = "Successfully removed the company" });
         }
     }
 }

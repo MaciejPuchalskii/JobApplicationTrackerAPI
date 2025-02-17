@@ -29,13 +29,17 @@ namespace JobApplicationTrackerAPI.Service.Company
             return company;
         }
 
-        public async Task<Models.Company> Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
             var entity = await _companyRepository.GetById(id);
 
+            if (entity == null) return false;
+
             await _companyRepository.Delete(entity);
 
-            return entity;
+            return true;
+        }
+
         public Task<bool> ExistByName(string name)
         {
             return _companyRepository.ExistByName(name);
@@ -63,7 +67,6 @@ namespace JobApplicationTrackerAPI.Service.Company
             company.CompanyURL = companyDto.CompanyURL;
 
             await _companyRepository.Update(company);
-
             return company;
         }
     }
