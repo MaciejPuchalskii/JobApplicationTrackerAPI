@@ -2,7 +2,7 @@
 
 namespace JobApplicationTrackerAPI.DTOs.Command.Company
 {
-    public class AddOrUpdateCompanyCommandDto
+    public class AddCompanyCommandDto
     {
         [Required(ErrorMessage = "Company name is required")]
         [StringLength(100, ErrorMessage = "Company name cannot exceed 100 characters")]

@@ -13,5 +13,7 @@ namespace JobApplicationTrackerAPI.Service.Company
         Task<Models.Company> GetById(Guid id);
 
         Task<Models.Company> Update(Guid guid, AddOrUpdateCompanyCommandDto companyDto);
+
+        Task<bool> ExistByName(string name);
     }
 }

@@ -32,11 +32,17 @@ namespace JobApplicationTrackerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddOrUpdateCompanyCommandDto companyDto)
+        public async Task<IActionResult> Create([FromBody] AddCompanyCommandDto companyDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            var exists = await _companyService.ExistByName(companyDto.Name);
+            if (exists)
+            {
+                return Conflict("Company with this name already exists.");
             }
 
             var createdCompany = await _companyService.Add(companyDto);

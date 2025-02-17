@@ -36,6 +36,9 @@ namespace JobApplicationTrackerAPI.Service.Company
             await _companyRepository.Delete(entity);
 
             return entity;
+        public Task<bool> ExistByName(string name)
+        {
+            return _companyRepository.ExistByName(name);
         }
 
         public async Task<IEnumerable<Models.Company>> GetAll()
