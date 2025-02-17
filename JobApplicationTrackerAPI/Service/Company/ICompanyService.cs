@@ -6,13 +6,13 @@ namespace JobApplicationTrackerAPI.Service.Company
     {
         Task<IEnumerable<Models.Company>> GetAll();
 
-        Task<Models.Company> Add(AddOrUpdateCompanyCommandDto companyDto);
+        Task<Models.Company> Add(AddCompanyCommandDto companyDto);
 
         Task<Models.Company> Delete(Guid id);
 
         Task<Models.Company> GetById(Guid id);
 
-        Task<Models.Company> Update(Guid guid, AddOrUpdateCompanyCommandDto companyDto);
+        Task<Models.Company> Update(Guid guid, UpdateCompanyCommandDto companyDto);
 
         Task<bool> ExistByName(string name);
     }

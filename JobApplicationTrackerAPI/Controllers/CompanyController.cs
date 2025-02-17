@@ -28,6 +28,7 @@ namespace JobApplicationTrackerAPI.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             var company = await _companyService.GetById(id);
+            if (company == null) return NotFound();
             return Ok(company);
         }
 
@@ -50,15 +51,16 @@ namespace JobApplicationTrackerAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] AddOrUpdateCompanyCommandDto companyDto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCompanyCommandDto companyDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var createdCompany = await _companyService.Add(companyDto);
-            return CreatedAtAction(nameof(GetById), new { id = createdCompany.Id }, createdCompany);
+            var updatedCompany = await _companyService.Update(id, companyDto);
+            if (updatedCompany == null) return NotFound();
+            return Ok(updatedCompany);
         }
 
         [HttpDelete("{id}")]

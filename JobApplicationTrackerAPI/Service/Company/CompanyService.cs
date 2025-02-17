@@ -13,7 +13,7 @@ namespace JobApplicationTrackerAPI.Service.Company
             _companyRepository = companyRepository;
         }
 
-        public async Task<Models.Company> Add(AddOrUpdateCompanyCommandDto companyDto)
+        public async Task<Models.Company> Add(AddCompanyCommandDto companyDto)
         {
             var company = new Models.Company
             {
@@ -51,17 +51,16 @@ namespace JobApplicationTrackerAPI.Service.Company
             return await _companyRepository.GetById(id);
         }
 
-        public async Task<Models.Company> Update(Guid guid, AddOrUpdateCompanyCommandDto companyDto)
+        public async Task<Models.Company> Update(Guid guid, UpdateCompanyCommandDto companyDto)
         {
-            var company = new Models.Company
-            {
-                Id = guid,
-                Name = companyDto.Name,
-                Description = companyDto.Description,
-                ContactPerson = companyDto.ContactPerson,
-                PhoneNumber = companyDto.PhoneNumber,
-                CompanyURL = companyDto.CompanyURL
-            };
+            var company = await _companyRepository.GetById(guid);
+
+            if (company == null) return null;
+
+            company.Description = companyDto.Description;
+            company.ContactPerson = companyDto.ContactPerson;
+            company.PhoneNumber = companyDto.PhoneNumber;
+            company.CompanyURL = companyDto.CompanyURL;
 
             await _companyRepository.Update(company);
 
