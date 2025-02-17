@@ -1,6 +1,7 @@
 ﻿using JobApplicationTrackerAPI.DTOs.Command.Company;
+using JobApplicationTrackerAPI.DTOs.Response.Company;
+using JobApplicationTrackerAPI.Models;
 using JobApplicationTrackerAPI.Repository.Company;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace JobApplicationTrackerAPI.Service.Company
 {
@@ -45,14 +46,38 @@ namespace JobApplicationTrackerAPI.Service.Company
             return _companyRepository.ExistByName(name);
         }
 
-        public async Task<IEnumerable<Models.Company>> GetAll()
+        public async Task<List<CompanyListResponseDto>> GetAll()
         {
-            return await _companyRepository.GetAll();
+            var companies = await _companyRepository.GetAll();
+
+            var responseCompanies = companies.Select(c => new CompanyListResponseDto()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                ContactPerson = c.ContactPerson,
+                PhoneNumber = c.PhoneNumber,
+                CompanyURL = c.CompanyURL
+            }).ToList();
+
+            return responseCompanies;
         }
 
-        public async Task<Models.Company> GetById(Guid id)
+        public async Task<CompanyResponseDto> GetById(Guid id)
         {
-            return await _companyRepository.GetById(id);
+            var company = await _companyRepository.GetById(id);
+            if (company == null) return null;
+
+            return new CompanyResponseDto()
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Description = company.Description,
+                ContactPerson = company.ContactPerson,
+                PhoneNumber = company.PhoneNumber,
+                CompanyURL = company.CompanyURL,
+                JobApplications = company.JobApplications
+            };
         }
 
         public async Task<Models.Company> Update(Guid guid, UpdateCompanyCommandDto companyDto)
