@@ -1,12 +1,14 @@
 using JobApplicationTrackerAPI.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using JobApplicationTrackerAPI.Extensions;
 using JobApplicationTrackerAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using JobApplicationTrackerAPI.Extensions;
+using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace JobApplicationTrackerAPI
 {
@@ -17,6 +19,13 @@ namespace JobApplicationTrackerAPI
             var builder = WebApplication.CreateBuilder(args);
             var jwtSettings = builder.Configuration.GetSection("JwtSettings");
             var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
+
+            builder.Services.AddControllers();
+
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
+
+            builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -34,7 +43,6 @@ namespace JobApplicationTrackerAPI
                 });
 
             var dbPath = Path.Combine(AppContext.BaseDirectory, "jobtracker.db");
-
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite($"Data Source={dbPath}"));
 
@@ -43,8 +51,6 @@ namespace JobApplicationTrackerAPI
                 .AddDefaultTokenProviders();
 
             builder.Services.AddApplicationServices();
-
-            builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>

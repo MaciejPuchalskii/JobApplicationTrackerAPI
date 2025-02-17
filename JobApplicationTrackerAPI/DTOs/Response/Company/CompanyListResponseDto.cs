@@ -1,7 +1,8 @@
-﻿namespace JobApplicationTrackerAPI.DTOs.Command.Company
+﻿namespace JobApplicationTrackerAPI.DTOs.Response.Company
 {
-    public class AddCompanyCommandDto
+    public class CompanyListResponseDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public string? ContactPerson { get; set; }
