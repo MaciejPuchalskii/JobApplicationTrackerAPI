@@ -47,5 +47,22 @@ namespace JobApplicationTrackerAPI.Service.Company
         {
             return await _companyRepository.GetById(id);
         }
+
+        public async Task<Models.Company> Update(Guid guid, AddOrUpdateCompanyCommandDto companyDto)
+        {
+            var company = new Models.Company
+            {
+                Id = guid,
+                Name = companyDto.Name,
+                Description = companyDto.Description,
+                ContactPerson = companyDto.ContactPerson,
+                PhoneNumber = companyDto.PhoneNumber,
+                CompanyURL = companyDto.CompanyURL
+            };
+
+            await _companyRepository.Update(company);
+
+            return company;
+        }
     }
 }

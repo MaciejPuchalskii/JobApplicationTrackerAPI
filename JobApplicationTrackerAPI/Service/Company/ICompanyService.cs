@@ -11,5 +11,7 @@ namespace JobApplicationTrackerAPI.Service.Company
         Task<Models.Company> Delete(Guid id);
 
         Task<Models.Company> GetById(Guid id);
+
+        Task<Models.Company> Update(Guid guid, AddOrUpdateCompanyCommandDto companyDto);
     }
 }
