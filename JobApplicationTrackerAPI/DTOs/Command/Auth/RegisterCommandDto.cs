@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobApplicationTrackerAPI.DTOs
+namespace JobApplicationTrackerAPI.DTOs.Command.Auth
 {
-    public class RegisterDto
+    public class RegisterCommandDto
     {
         [Required]
         public string Name { get; set; }
