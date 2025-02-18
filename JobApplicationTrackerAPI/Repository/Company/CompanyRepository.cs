@@ -14,7 +14,7 @@ namespace JobApplicationTrackerAPI.Repository.Company
 
         public async Task<bool> ExistByName(string name)
         {
-            return await _context.Companies.AnyAsync(c => c.Name == name);
+            return await _context.Companies.AnyAsync(c => c.Name.ToLower() == name.ToLower());
         }
     }
 }
