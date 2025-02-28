@@ -7,5 +7,10 @@ namespace JobApplicationTrackerAPI.Repository.JobApplication
         public JobApplicationRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public Task<List<Models.JobApplication>> GetByCompanyId(Guid companyId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
