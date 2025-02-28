@@ -1,6 +1,4 @@
-﻿using JobApplicationTrackerAPI.Models;
-
-namespace JobApplicationTrackerAPI.DTOs.Response.Company
+﻿namespace JobApplicationTrackerAPI.DTOs.Response.Company
 {
     public class CompanyResponseDto
     {
@@ -13,6 +11,6 @@ namespace JobApplicationTrackerAPI.DTOs.Response.Company
 
         public string? PhoneNumber { get; set; }
         public string? CompanyURL { get; set; }
-        public ICollection<JobApplication> JobApplications { get; set; }
+        public ICollection<Models.JobApplication> JobApplications { get; set; }
     }
 }
