@@ -2,7 +2,6 @@
 using JobApplicationTrackerAPI.Controllers;
 using JobApplicationTrackerAPI.DTOs.Command.JobApplication;
 using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
-using JobApplicationTrackerAPI.Models;
 using JobApplicationTrackerAPI.Service.JobApplicationService;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
