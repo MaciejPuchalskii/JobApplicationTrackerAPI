@@ -7,7 +7,7 @@ using JobApplicationTrackerAPI.Service.Company;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace JobApplicationTrackerAPI.Tests
+namespace JobApplicationTrackerAPI.Tests.CompanyTests
 {
     public class CompanyControllerTests
     {
