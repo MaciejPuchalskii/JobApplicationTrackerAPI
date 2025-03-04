@@ -28,34 +28,39 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
 
             var jobApplications = new List<JobApplication>
             {
-                new JobApplication
-                {
+                new() {
                     Id = Guid.NewGuid(),
                     Position = "Developer",
+                    Description = "description",
                     CompanyId = companyId,
+                     UserId = "a",
                     AppliedDate = DateTime.Now,
                     Status = Data.Enums.JobApplicationStatus.Applied
                 },
-                new JobApplication
-                {
+                new() {
                     Id = Guid.NewGuid(),
                     Position = "Tester",
+                    Description = "description",
+                    UserId = "a",
                     CompanyId = companyId,
                     AppliedDate = DateTime.Now,
                     Status = Data.Enums.JobApplicationStatus.Applied
                 },
-                new JobApplication
-                {
+                new() {
                     Id = Guid.NewGuid(),
                     Position = "Manager",
+                    Description = "description",
+                    UserId = "a",
                     CompanyId = otherCompanyId,
                     AppliedDate = DateTime.Now,
                     Status = Data.Enums.JobApplicationStatus.Applied
                 }
             };
 
-            await _context.JobApplications.AddRangeAsync(jobApplications);
-            await _context.SaveChangesAsync();
+            foreach (var app in jobApplications)
+            {
+                await _repository.Add(app);
+            }
 
             // Act
             var result = await _repository.GetByCompanyId(companyId);
