@@ -1,16 +1,20 @@
 ﻿using JobApplicationTrackerAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobApplicationTrackerAPI.Repository.JobApplication
 {
     public class JobApplicationRepository : GenericRepository<Models.JobApplication>, IJobApplicationRepository
     {
+        private readonly ApplicationDbContext _context;
+
         public JobApplicationRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
         }
 
-        public Task<List<Models.JobApplication>> GetByCompanyId(Guid companyId)
+        public async Task<List<Models.JobApplication>> GetByCompanyId(Guid companyId)
         {
-            throw new NotImplementedException();
+            return _context.JobApplications.Where(application => application.CompanyId == companyId).ToList();
         }
     }
 }
