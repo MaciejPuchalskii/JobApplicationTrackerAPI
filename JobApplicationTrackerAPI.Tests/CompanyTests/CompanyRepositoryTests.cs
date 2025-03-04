@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using JobApplicationTrackerAPI.Data;
 using JobApplicationTrackerAPI.Models;
-using JobApplicationTrackerAPI.Repository;
 using JobApplicationTrackerAPI.Repository.Company;
 using Microsoft.EntityFrameworkCore;
 
