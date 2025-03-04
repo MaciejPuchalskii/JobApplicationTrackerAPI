@@ -1,5 +1,4 @@
 ﻿using JobApplicationTrackerAPI.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace JobApplicationTrackerAPI.Repository.JobApplication
 {
