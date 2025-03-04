@@ -2,6 +2,7 @@
 using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
 using JobApplicationTrackerAPI.Models;
 using JobApplicationTrackerAPI.Repository.JobApplication;
+using System;
 
 namespace JobApplicationTrackerAPI.Service.JobApplicationService
 {
@@ -38,24 +39,76 @@ namespace JobApplicationTrackerAPI.Service.JobApplicationService
             };
         }
 
-        public Task<bool> Delete(Guid jobApplicationId)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = await _jobApplicationRepository.GetById(id);
+            if (entity == null) return false;
+
+            await _jobApplicationRepository.Delete(entity);
+
+            return true;
         }
 
-        public Task<List<JobApplicationGetAllResponseDto>> GetAll()
+        public async Task<List<JobApplicationGetAllResponseDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var applications = await _jobApplicationRepository.GetAll();
+
+            return applications.Select(app => new JobApplicationGetAllResponseDto()
+            {
+                Position = app.Position,
+                AppliedDate = app.AppliedDate,
+                CompanyId = app.CompanyId,
+                Description = app.Description,
+                Id = app.Id,
+                Status = app.Status
+            }).ToList();
         }
 
-        public Task<List<JobApplicationGetAllResponseDto>> GetByCompanyId(Guid companyId)
+        public async Task<List<JobApplicationGetAllResponseDto>> GetByCompanyId(Guid companyId)
         {
-            throw new NotImplementedException();
+            var jobApps = await _jobApplicationRepository.GetByCompanyId(companyId);
+            if (jobApps == null)
+            {
+                throw new Exception("Invalid company id");
+            }
+            return jobApps.Select(app => new JobApplicationGetAllResponseDto()
+            {
+                Position = app.Position,
+                AppliedDate = app.AppliedDate,
+                CompanyId = app.CompanyId,
+                Description = app.Description,
+                Id = app.Id,
+                Status = app.Status
+            }).ToList();
         }
 
-        public Task<JobApplicationResponseDto> Update(UpdateJobApplicationCommandDto updateDto)
+        public async Task<JobApplicationResponseDto> Update(UpdateJobApplicationCommandDto updateDto)
         {
-            throw new NotImplementedException();
+            var jobApplication = await _jobApplicationRepository.GetById(updateDto.Id);
+
+            if (jobApplication == null) return null;
+
+            jobApplication.Description = updateDto.Description;
+            jobApplication.AppliedDate = updateDto.AppliedDate;
+            jobApplication.Status = updateDto.Status;
+            jobApplication.Position = updateDto.Position;
+            jobApplication.JobAdvertURL = updateDto.JobAdvertURL;
+            jobApplication.CompanyId = updateDto.CompanyId;
+
+            await _jobApplicationRepository.Update(jobApplication);
+
+            return new JobApplicationResponseDto()
+            {
+                Id = jobApplication.Id,
+                Position = jobApplication.Position,
+                Description = jobApplication.Description,
+                Status = jobApplication.Status,
+                AppliedDate = jobApplication.AppliedDate,
+                JobAdvertURL = jobApplication.JobAdvertURL,
+                CompanyId = jobApplication.CompanyId,
+                NotesList = jobApplication.NotesList?.ToList(),
+                Attachments = jobApplication.Attachments?.ToList()
+            };
         }
     }
 }
