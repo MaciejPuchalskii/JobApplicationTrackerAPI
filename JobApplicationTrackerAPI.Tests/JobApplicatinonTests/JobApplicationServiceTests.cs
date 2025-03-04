@@ -44,7 +44,6 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
             result.Should().NotBeNull();
             result.Position.Should().Be(addJobApplicationDto.Position);
             result.AppliedDate.Should().Be(addJobApplicationDto.AppliedDate);
-            result.CompanyId.Should().Be(addJobApplicationDto.CompanyId);
 
             _jobApplicationRepositoryMock.Verify(repo => repo.Add(It.IsAny<JobApplication>()), Times.Once);
         }

@@ -59,15 +59,11 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
                 Status = Data.Enums.JobApplicationStatus.Applied
             };
 
-            var createdJobApplication = new JobApplicationResponseDto
+            var createdJobApplication = new JobApplicationAddResponseDto
             {
                 Id = Guid.NewGuid(),
                 Position = "Software Developer",
-                Description = "Test",
-                JobAdvertURL = "Url",
-                CompanyId = addJobApplicationDto.CompanyId,
                 AppliedDate = addJobApplicationDto.AppliedDate,
-                Status = Data.Enums.JobApplicationStatus.Applied
             };
 
             var userId = Guid.NewGuid().ToString();

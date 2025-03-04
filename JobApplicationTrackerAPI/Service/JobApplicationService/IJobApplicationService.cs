@@ -5,7 +5,7 @@ namespace JobApplicationTrackerAPI.Service.JobApplicationService
 {
     public interface IJobApplicationService
     {
-        Task<JobApplicationResponseDto> Add(AddJobApplicationCommandDto addJobApplicationDto, string userId);
+        Task<JobApplicationAddResponseDto> Add(AddJobApplicationCommandDto addJobApplicationDto, string userId);
 
         Task<bool> Delete(Guid jobApplicationId);
 
