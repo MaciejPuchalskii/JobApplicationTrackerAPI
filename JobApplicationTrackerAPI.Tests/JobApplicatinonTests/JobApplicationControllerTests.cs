@@ -3,8 +3,10 @@ using JobApplicationTrackerAPI.Controllers;
 using JobApplicationTrackerAPI.DTOs.Command.JobApplication;
 using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
 using JobApplicationTrackerAPI.Service.JobApplicationService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Security.Claims;
 
 namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
 {
@@ -17,6 +19,19 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
         {
             _serviceMock = new Mock<IJobApplicationService>();
             _controller = new JobApplicationController(_serviceMock.Object);
+
+            var userId = Guid.NewGuid().ToString();
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, userId)
+            };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var principal = new ClaimsPrincipal(identity);
+
+            _controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext { User = principal }
+            };
         }
 
         [Fact]
@@ -66,7 +81,7 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
                 AppliedDate = addJobApplicationDto.AppliedDate,
             };
 
-            var userId = Guid.NewGuid().ToString();
+            var userId = _controller.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             _serviceMock.Setup(service => service.Add(addJobApplicationDto, userId)).ReturnsAsync(createdJobApplication);
 
             // Act
@@ -165,7 +180,7 @@ namespace JobApplicationTrackerAPI.Tests.JobApplicatinonTests
             var result = await _controller.Delete(jobApplicationId);
 
             // Assert
-            var okResult = result as OkResult;
+            var okResult = result as OkObjectResult;
             okResult.Should().NotBeNull();
             okResult.StatusCode.Should().Be(200);
 
