@@ -1,10 +1,14 @@
 ﻿using JobApplicationTrackerAPI.DTOs.Command.JobApplication;
-using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
 using JobApplicationTrackerAPI.Service.JobApplicationService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace JobApplicationTrackerAPI.Controllers
 {
+    [Route("api/jobapplications")]
+    [Controller]
+    [Authorize]
     public class JobApplicationController : Controller
     {
         private readonly IJobApplicationService _jobApplicationService;
@@ -14,9 +18,11 @@ namespace JobApplicationTrackerAPI.Controllers
             _jobApplicationService = jobApplicationService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            throw new NotImplementedException();
+            var applications = await _jobApplicationService.GetAll();
+            return Ok(applications);
         }
 
         [HttpGet("/application/{id}")]
@@ -30,22 +36,43 @@ namespace JobApplicationTrackerAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddJobApplicationCommandDto addJobApplicationCommandDto)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var createdJobApp = await _jobApplicationService.Add(addJobApplicationCommandDto, userId);
+
+            return CreatedAtAction(nameof(GetById), new { id = createdJobApp.Id }, createdJobApp);
         }
 
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(UpdateJobApplicationCommandDto updateDto)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedApplication = await _jobApplicationService.Update(updateDto);
+            if (updatedApplication == null) return NotFound();
+            return Ok(updatedApplication);
         }
 
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid jobApplicationId)
         {
-            throw new NotImplementedException();
+            var result = await _jobApplicationService.Delete(jobApplicationId);
+            if (!result) return NotFound();
+            return Ok(result);
         }
 
+        [HttpGet("{companyId}")]
         public async Task<IActionResult> GetByCompanyId(Guid companyId)
         {
-            throw new NotImplementedException();
+            var applications = await _jobApplicationService.GetByCompanyId(companyId);
+            return Ok(applications);
         }
     }
 }
