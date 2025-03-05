@@ -5,7 +5,7 @@ using JobApplicationTrackerAPI.Repository.Company;
 using JobApplicationTrackerAPI.Service.Company;
 using Moq;
 
-namespace JobApplicationTrackerAPI.Tests
+namespace JobApplicationTrackerAPI.Tests.CompanyTests
 {
     public class CompanyServiceTests
     {

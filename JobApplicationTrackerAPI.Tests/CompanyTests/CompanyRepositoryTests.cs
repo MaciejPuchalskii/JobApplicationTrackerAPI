@@ -1,11 +1,10 @@
 ﻿using FluentAssertions;
 using JobApplicationTrackerAPI.Data;
 using JobApplicationTrackerAPI.Models;
-using JobApplicationTrackerAPI.Repository;
 using JobApplicationTrackerAPI.Repository.Company;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobApplicationTrackerAPI.Tests
+namespace JobApplicationTrackerAPI.Tests.CompanyTests
 {
     public class CompanyRepositoryTests : IDisposable
     {
