@@ -33,6 +33,13 @@ namespace JobApplicationTrackerAPI.Controllers
             return Ok(jobApp);
         }
 
+        [HttpGet("{companyId}")]
+        public async Task<IActionResult> GetByCompanyId(Guid companyId)
+        {
+            var applications = await _jobApplicationService.GetByCompanyId(companyId);
+            return Ok(applications);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(AddJobApplicationCommandDto addJobApplicationCommandDto)
         {
@@ -47,7 +54,7 @@ namespace JobApplicationTrackerAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = createdJobApp.Id }, createdJobApp);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut()]
         public async Task<IActionResult> Update(UpdateJobApplicationCommandDto updateDto)
         {
             if (!ModelState.IsValid)
@@ -60,19 +67,12 @@ namespace JobApplicationTrackerAPI.Controllers
             return Ok(updatedApplication);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(Guid jobApplicationId)
         {
             var result = await _jobApplicationService.Delete(jobApplicationId);
             if (!result) return NotFound();
             return Ok(result);
-        }
-
-        [HttpGet("{companyId}")]
-        public async Task<IActionResult> GetByCompanyId(Guid companyId)
-        {
-            var applications = await _jobApplicationService.GetByCompanyId(companyId);
-            return Ok(applications);
         }
     }
 }
