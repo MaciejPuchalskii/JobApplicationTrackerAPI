@@ -2,7 +2,6 @@
 using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
 using JobApplicationTrackerAPI.Models;
 using JobApplicationTrackerAPI.Repository.JobApplication;
-using System;
 
 namespace JobApplicationTrackerAPI.Service.JobApplicationService
 {
@@ -80,6 +79,25 @@ namespace JobApplicationTrackerAPI.Service.JobApplicationService
                 Id = app.Id,
                 Status = app.Status
             }).ToList();
+        }
+
+        public async Task<JobApplicationResponseDto> GetById(Guid id)
+        {
+            var jobApplication = await _jobApplicationRepository.GetById(id);
+            if (jobApplication == null) return null;
+
+            return new JobApplicationResponseDto()
+            {
+                Id = jobApplication.Id,
+                Position = jobApplication.Position,
+                Description = jobApplication.Description,
+                Status = jobApplication.Status,
+                AppliedDate = jobApplication.AppliedDate,
+                JobAdvertURL = jobApplication.JobAdvertURL,
+                CompanyId = jobApplication.CompanyId,
+                NotesList = jobApplication.NotesList?.ToList(),
+                Attachments = jobApplication.Attachments?.ToList()
+            };
         }
 
         public async Task<JobApplicationResponseDto> Update(UpdateJobApplicationCommandDto updateDto)

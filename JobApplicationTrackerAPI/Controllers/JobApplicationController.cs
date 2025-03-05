@@ -19,6 +19,15 @@ namespace JobApplicationTrackerAPI.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpGet("/application/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var jobApp = await _jobApplicationService.GetById(id);
+            if (jobApp == null) return NotFound();
+            return Ok(jobApp);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Create(AddJobApplicationCommandDto addJobApplicationCommandDto)
         {
             throw new NotImplementedException();

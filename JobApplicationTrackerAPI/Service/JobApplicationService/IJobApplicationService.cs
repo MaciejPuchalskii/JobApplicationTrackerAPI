@@ -1,4 +1,5 @@
 ﻿using JobApplicationTrackerAPI.DTOs.Command.JobApplication;
+using JobApplicationTrackerAPI.DTOs.Response.Company;
 using JobApplicationTrackerAPI.DTOs.Response.JobApplication;
 
 namespace JobApplicationTrackerAPI.Service.JobApplicationService
@@ -10,6 +11,8 @@ namespace JobApplicationTrackerAPI.Service.JobApplicationService
         Task<bool> Delete(Guid jobApplicationId);
 
         Task<List<JobApplicationGetAllResponseDto>> GetAll();
+
+        Task<JobApplicationResponseDto> GetById(Guid id);
 
         Task<List<JobApplicationGetAllResponseDto>> GetByCompanyId(Guid companyId);
 
