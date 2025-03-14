@@ -1,5 +1,5 @@
 # JobApplicationTrackerAPI
-# In progress 
+In progress 
 Creating API for future frontend developing
 
 
